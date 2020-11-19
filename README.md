@@ -24,3 +24,6 @@ In the project's root directory run"
 ```
 ./mvnw spring-boot:run
 ```
+
+## Accessing MongoDB administration panel
+Open http://localhost:8081/
