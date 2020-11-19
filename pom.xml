@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pl.switalla</groupId>
-    <artifactId>sensorBody</artifactId>
+    <artifactId>sensor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>sensorBody</name>
+    <name>sensor</name>
     <description>Sensor Project</description>
 
     <properties>
@@ -50,6 +50,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

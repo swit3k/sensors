@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.switalla.co2sensors.sensor.MeasurementsCollector;
 import pl.switalla.co2sensors.sensor.MeasurementsRepository;
 import pl.switalla.co2sensors.sensor.SensorsRepository;
 import pl.switalla.co2sensors.sensor.http.exception.SensorNotFoundException;
@@ -27,11 +28,11 @@ public class SensorsController {
     private static final Logger LOG = LoggerFactory.getLogger(SensorsController.class);
 
     private final SensorsRepository sensorsRepository;
-    private final MeasurementsRepository measurementsRepository;
+    private final MeasurementsCollector measurementsCollector;
 
-    public SensorsController(SensorsRepository sensorsRepository, MeasurementsRepository measurementsRepository) {
+    public SensorsController(SensorsRepository sensorsRepository, MeasurementsCollector measurementsCollector) {
         this.sensorsRepository = sensorsRepository;
-        this.measurementsRepository = measurementsRepository;
+        this.measurementsCollector = measurementsCollector;
     }
 
     @PostMapping("/{sensorId}/measurements")
@@ -39,23 +40,13 @@ public class SensorsController {
     public void collectMeasurement(@PathVariable String sensorId, @Validated @RequestBody MeasurementBody measurementBody) {
         LOG.debug("Collecting measurement for sensorId: {}, co2: {} ppm", sensorId, measurementBody.getCo2());
 
-        measurementsRepository.save(MeasurementBody.toModel(sensorId, measurementBody));
+        measurementsCollector.collect(sensorId, MeasurementBody.toModel(sensorId, measurementBody));
     }
 
     @GetMapping("/{sensorId}")
     public Sensor sensor(@PathVariable UUID sensorId) {
         return sensorsRepository.findById(sensorId.toString())
             .orElseThrow(SensorNotFoundException::new);
-    }
-
-    @GetMapping
-    public List<Sensor> sensors() {
-        return sensorsRepository.findAll();
-    }
-
-    @GetMapping("/measurements")
-    public List<Measurement> measurements() {
-        return measurementsRepository.findAll();
     }
 
     @GetMapping("/{sensorId}/metrics")
