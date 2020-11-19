@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+  sensor-mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - sensor-mongo-volume:/data/db
+      - ./mongo/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    environment:
+      MONGO_INITDB_DATABASE: 'sensors'
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: '${MONGO_ROOT_PASSWORD}'
+
+  sensor-mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: 'sensor-mongo'
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'false'
+      ME_CONFIG_MONGODB_AUTH_DATABASE: 'sensors'
+      ME_CONFIG_MONGODB_AUTH_USERNAME: '${MONGO_SENSOR_USER}'
+      ME_CONFIG_MONGODB_AUTH_PASSWORD: '${MONGO_SENSOR_PASSWORD}'
+
+volumes:
+  sensor-mongo-volume:
