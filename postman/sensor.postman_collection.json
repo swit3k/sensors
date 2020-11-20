@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "e1968260-b776-410f-93bf-ffc1f838dca7",
+		"name": "Sensor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Collect Measurements",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/v1/sensors/{{sensorId}}/measurements",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"{{sensorId}}",
+						"measurements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sensor Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/v1/sensors/{{sensorId}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"{{sensorId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sensor Metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/v1/sensors/6be40629-a182-49cc-8412-e0bdd149bd40/metrics",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"6be40629-a182-49cc-8412-e0bdd149bd40",
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

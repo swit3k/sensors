@@ -37,7 +37,6 @@ public class MeasurementsCollector {
         sensor.determineAndSetStatus(measurement.getCo2(), lastTwoMeasurements);
 
         LOG.debug("Status of sensor: {}, set to: {}", sensorId, sensor.getStatus());
-
         sensorsRepository.save(sensor);
     }
 }

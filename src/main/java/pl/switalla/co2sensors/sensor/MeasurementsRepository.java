@@ -6,6 +6,7 @@ import pl.switalla.co2sensors.sensor.model.Measurement;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Measurements Repository
@@ -15,5 +16,5 @@ public interface MeasurementsRepository extends MongoRepository<Measurement, Str
 
     List<Measurement> findFirst2BySensorId(String sensorId, Sort sort);
 
-    Measurement findFirstBySensorIdAndTime(String sensorId, Instant time, Sort sort);
+    Optional<Measurement> findFirstBySensorIdAndTimeAfter(String sensorId, Instant time, Sort sort);
 }
