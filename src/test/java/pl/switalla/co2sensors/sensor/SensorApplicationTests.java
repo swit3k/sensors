@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import pl.switalla.co2sensors.config.error.HttpError;
 import pl.switalla.co2sensors.sensor.http.request.MeasurementBody;
 import pl.switalla.co2sensors.sensor.model.Sensor;
-import pl.switalla.co2sensors.sensor.model.Sensor.Status;
+import pl.switalla.co2sensors.sensor.status.Status;
 
 import java.time.Instant;
 import java.util.Optional;

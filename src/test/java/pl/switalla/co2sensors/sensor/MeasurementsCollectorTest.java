@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 import pl.switalla.co2sensors.sensor.model.Measurement;
 import pl.switalla.co2sensors.sensor.model.Sensor;
+import pl.switalla.co2sensors.sensor.status.state.StatusStates;
 
 import java.time.Instant;
 import java.util.List;
@@ -29,6 +30,9 @@ class MeasurementsCollectorTest {
 
     @Mock
     private MeasurementsRepository measurementsRepository;
+
+    @Mock
+    private StatusStates statusStates;
 
     @Mock
     private Sensor sensor;
@@ -53,7 +57,7 @@ class MeasurementsCollectorTest {
         collector.collect(sensorId, measurement);
 
         // assert
-        verify(sensor).determineAndSetStatus(newMeasurement.capture(), oldMeasurements.capture());
+        verify(statusStates).determineNewStatus(eq(sensor), newMeasurement.capture(), oldMeasurements.capture());
         verify(measurementsRepository).save(eq(measurement));
 
         assertThat(newMeasurement.getValue()).isEqualTo(1700);
